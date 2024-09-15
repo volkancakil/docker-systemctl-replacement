@@ -1,4 +1,9 @@
-[![Build Status](https://dev.azure.com/gdraheim/gdraheim/_apis/build/status/gdraheim.docker-systemctl-replacement?branchName=develop)](https://dev.azure.com/gdraheim/gdraheim/_build/latest?definitionId=5&branchName=develop) . . . _(make checks : code coverage 93% from more than 400 test cases)_
+[![Style Check](https://github.com/gdraheim/docker-systemctl-replacement/actions/workflows/stylecheck.yml/badge.svg?event=push&branch=develop)](https://github.com/gdraheim/docker-systemctl-replacement/actions/workflows/stylecheck.yml)
+[![Type Check](https://github.com/gdraheim/docker-systemctl-replacement/actions/workflows/typecheck.yml/badge.svg?event=push&branch=develop)](https://github.com/gdraheim/docker-systemctl-replacement/actions/workflows/typecheck.yml)
+[![Unit Tests](https://github.com/gdraheim/docker-systemctl-replacement/actions/workflows/unittests.yml/badge.svg?event=push&branch=develop)](https://github.com/gdraheim/docker-systemctl-replacement/actions/workflows/unittests.yml)
+[![Code Coverage](https://img.shields.io/badge/400%20test-93%25%20coverage-brightgreen)](https://github.com/gdraheim/docker-systemctl-replacement/blob/master/testsuite.py)
+[![PyPI version](https://badge.fury.io/py/docker-systemctl-replacement.svg)](https://pypi.org/project/docker-systemctl-replacement/)
+
 
 # docker systemctl replacement
 
@@ -10,7 +15,7 @@ container as the target host. Just as on a real machine you
 can use "systemctl start" and "systemctl enable" and other 
 commands to bring up services for further configuration and 
 testing. Information from "systemctl show" allows deployment
-automation tools to work seemlessly.
+automation tools to work seamlessly.
 
 This script can also be run as docker-init of a docker container
 (i.e. the main "CMD" on PID 1) where it will automatically bring 
@@ -75,7 +80,7 @@ the container. Just make your inventory look like
 
 Based on that `ansible_connection` one can enable the
 systemctl-replacement to intercept subsequent calls
-to `"service:"` steps. Effectivly Ansible scripts that 
+to `"service:"` steps. Effectively Ansible scripts that 
 shall be run on real virtual machines can be tested 
 with docker containers. However in newer centos/ubuntu
 images you need to check for python first.
@@ -102,13 +107,13 @@ the container - but NOT to any other process. If the CMD
 is the actual application (exec java -jar whatever) then 
 this works fine as it will also clean up its subprocesses. 
 In many other cases it is not sufficient leaving 
-[zombie processes](https://www.howtogeek.com/119815/) 
+[zombie processes](https://www.howtogeek.com/119815/htg-explains-what-is-a-zombie-process-on-linux/) 
 around.
 
 Zombie processes may also occur when a master process does 
 not do a `wait` for its children or the children were
 explicitly "disown"ed to run as a daemon themselves. The
-systemctl replacment script can help here as it implements 
+systemctl replacement script can help here as it implements 
 the "zombie reaper" functionality that the standard unix
 init daemon would provide. Otherwise the zombie PIDs would
 continue to live forever (as long as the container is
@@ -170,7 +175,7 @@ a number of packages during provisioning - but with the help of the
 [docker-mirror-packages-repo](https://github.com/gdraheim/docker-mirror-packages-repo)
 scripting this can be reduced a lot (it even runs without internet connection).
 
-Some real world examples have been cut out into a seperate
+Some real world examples have been cut out into a separate
 project. This includes dockerfile and ansible based tests
 to provide common applications like webservers, databases
 and even a Jenkins application. You may want to have a look
@@ -205,7 +210,7 @@ documented so that much of the current implementation is
 done by trial and fixing the errors. Some [BUGS](BUGS.md)
 are actually in other tools and need to be circumvented. As 
 most programmers tend to write very simple `*.service` files 
-it works in a surprising number of cases however. But definitly 
+it works in a surprising number of cases however. But definitely 
 not all. So if there is a problem, use the
 [github issue tracker](https://github.com/gdraheim/docker-systemctl-replacement/issues)
 to make me aware of it. In general it is not needed to emulate
